@@ -1,3 +1,4 @@
+import TimePicker from "./time-picker";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import {
@@ -13,8 +14,13 @@ import {
 export function MedicineForm() {
   return (
     <form className="space-y-4">
-      <Input className="w-full" placeholder="Medicine Name" type="text" />
-      <Select>
+      <Input
+        name="medicine-name"
+        className="w-full"
+        placeholder="Medicine Name"
+        type="text"
+      />
+      <Select name="frequency">
         <SelectTrigger>
           <SelectValue placeholder="Select Frequency" />
         </SelectTrigger>
@@ -24,9 +30,12 @@ export function MedicineForm() {
             <SelectItem value="daily">Daily</SelectItem>
             <SelectItem value="twice-daily">Twice Daily</SelectItem>
             <SelectItem value="thrice-daily">Thrice Daily</SelectItem>
+            <SelectItem value="weekly">Weekly</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
+      <TimePicker />
+
       <Button type="submit" variant="default" className="w-full">
         Add Medicine
       </Button>
