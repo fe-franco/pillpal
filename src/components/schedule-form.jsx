@@ -1,6 +1,6 @@
+import { Link } from "lucide-react";
 import TimePicker from "./time-picker";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import {
   Select,
   SelectContent,
@@ -11,15 +11,16 @@ import {
   SelectValue,
 } from "./ui/select";
 
-export function MedicineForm() {
+import axios from "axios";
+import { Suspense } from "react";
+import { Combobox } from "./ui/combo-box";
+
+export async function MedicineForm() {
   return (
     <form className="space-y-4">
-      <Input
-        name="medicine-name"
-        className="w-full"
-        placeholder="Medicine Name"
-        type="text"
-      />
+      <Suspense>
+        <MedicineSelect />
+      </Suspense>
       <Select name="frequency">
         <SelectTrigger>
           <SelectValue placeholder="Select Frequency" />
@@ -40,5 +41,34 @@ export function MedicineForm() {
         Add Medicine
       </Button>
     </form>
+  );
+}
+
+async function MedicineSelect() {
+  const response = await axios.get(
+    "https://pillpal.up.railway.app/api/medicine"
+  );
+
+  const medicines = response.data;
+  // [
+  //   { name: 'Paracetamol', id: 1 },
+  //   { name: 'Aspirin', id: 2 },
+  //   { name: 'Ibuprofen', id: 3 },
+  //   { name: 'Amoxicillin', id: 4 },
+  //   { name: 'Loratadine', id: 5 },
+  //   { name: 'Omeprazole', id: 6 }
+  // ]
+
+  console.log(typeof medicines);
+
+  return (
+    <Combobox
+      emptyMessage="No medicine found"
+      placeholder="Search Medicine"
+      options={medicines.map((medicine) => ({
+        label: medicine.name,
+        value: medicine.id,
+      }))}
+    />
   );
 }

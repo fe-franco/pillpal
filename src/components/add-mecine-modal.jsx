@@ -8,7 +8,7 @@ import {
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
-import { MedicineForm } from "./medicine-form";
+import { MedicineForm } from "./schedule-form";
 
 const AddMedicineModal = () => {
   // Component logic goes here
